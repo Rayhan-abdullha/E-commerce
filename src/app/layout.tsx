@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ['latin'] });
 import './globals.css';
 import SearchOverlay from './components/layout/SearchOverlay';
 import Link from 'next/link';
+import BottomNav from './components/layout/BottomNav';
 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -52,15 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
         <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
         {/* Mobile Nav Trigger */}
-        <nav className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-md border-t border-gray-100 flex justify-around p-4 md:hidden z-50">
-           <button className="p-2">🏠</button>
-           <button className="p-2">🔍</button>
-           <button onClick={() => setIsCartOpen(true)} className="p-2 relative">
-             🛍️
-             <span className="absolute top-2 right-2 w-2 h-2 bg-black rounded-full border border-white"></span>
-           </button>
-           <button className="p-2">👤</button>
-        </nav>
+        <BottomNav setOpenSearch={() => setIsSearchOpen(true)} setOpenCart={() => setIsCartOpen(true)} />
       </body>
     </html>
   );
