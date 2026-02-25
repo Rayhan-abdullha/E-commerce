@@ -27,35 +27,54 @@ export default function HomePage() {
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
-        {PRODUCTS.map((p) => (
-          <div key={p.id} className="group cursor-pointer">
-            <div className="relative aspect-[3/4] bg-white rounded-[2rem] overflow-hidden mb-5 border border-gray-50 shadow-sm">
-              <img src={p.img} alt={p.name} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-1000" />
-              <div className="absolute inset-0 bg-black/5 transition-opacity" />
-              <button 
-                onClick={() => {
-                  setIsCartOpen(true);
-                }}
-                className="cursor-pointer absolute bottom-4 left-4 bg-white px-4 py-2 rounded-full text-[10px] font-bold uppercase shadow-xl"
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+      {PRODUCTS.map((p) => (
+        <div key={p.id} className="group cursor-pointer">
+          <div className="relative aspect-[3/4] bg-white rounded-[2rem] overflow-hidden mb-5 border border-gray-50 shadow-sm">
+            
+            <img
+              src={p.img}
+              alt={p.name}
+              className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
+            />
+
+            {/* Overlay Buttons */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-full px-4 
+                            flex flex-col sm:flex-row gap-3 justify-center items-center 
+                            opacity-0 group-hover:opacity-100 transition duration-300">
+
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="w-full sm:w-auto bg-white px-4 py-2 rounded-full 
+                          text-[10px] font-bold uppercase shadow-xl hover:bg-black hover:text-white transition"
               >
                 Quick Add +
               </button>
-                <button 
+
+              <button
                 onClick={() => window.location.href = `/product/${p.id}`}
-                className="cursor-pointer absolute bottom-4 right-4 bg-white px-4 py-2 rounded-full text-[10px] font-bold uppercase shadow-xl"
+                className="w-full sm:w-auto bg-white px-4 py-2 rounded-full 
+                          text-[10px] font-bold uppercase shadow-xl hover:bg-black hover:text-white transition"
               >
                 View Details
               </button>
+
             </div>
-            <div className="px-1">
-              <p className="text-[10px] uppercase font-black text-gray-300 mb-1">{p.cat}</p>
-              <h3 className="text-sm font-medium text-gray-800">{p.name}</h3>
-              <p className="text-sm font-light mt-1 text-gray-500">${p.price}.00</p>
-            </div>
+
           </div>
-        ))}
-      </div>
+
+          <div className="px-1">
+            <p className="text-[10px] uppercase font-black text-gray-300 mb-1">
+              {p.cat}
+            </p>
+            <h3 className="text-sm font-medium text-gray-800">{p.name}</h3>
+            <p className="text-sm font-light mt-1 text-gray-500">
+              ${p.price}.00
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
     </div>
   );
 }
