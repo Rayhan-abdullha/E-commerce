@@ -21,9 +21,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="hidden md:flex justify-between items-center px-10 py-6 bg-white border-b border-gray-100 sticky top-0 z-40">
           <Link href="/" className="cursor-pointer hover:text-black transition-colors text-xl font-black tracking-tighter italic">LUXE.</Link>
           <nav className="flex gap-10 text-xs font-bold uppercase tracking-widest text-gray-400">
-            <a href="/" className="hover:text-black transition-colors text-black">Collections</a>
-            <a href="#" className="hover:text-black transition-colors">New Arrivals</a>
-            <a href="#" className="hover:text-black transition-colors">Journal</a>
+            <Link href="/" className="hover:text-black transition-colors text-black">Home</Link>
+            <Link href="/admin" className="hover:text-black transition-colors">Admin</Link>
           </nav>
           <div className="flex gap-6 text-sm items-center">
             <div className="flex gap-6 text-sm items-center">

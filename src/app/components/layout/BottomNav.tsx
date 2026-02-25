@@ -9,7 +9,8 @@ export default function BottomNav({setOpenSearch, setOpenCart}: {setOpenSearch: 
       <Home className="w-6 h-6 text-gray-900" /></Link>
       <Search className="w-6 h-6 text-gray-400 cursor-pointer" onClick={setOpenSearch} />
       <ShoppingBag  className="w-6 h-6 text-gray-400 cursor-pointer" onClick={setOpenCart} />
-      <User className="w-6 h-6 text-gray-400" />
+      <Link href="/admin">
+      <User className="w-6 h-6 text-gray-400" /></Link>
     </nav>
   );
 }
