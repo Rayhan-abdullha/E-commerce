@@ -1,36 +1,18 @@
 "use client";
 import React, { useState } from 'react';
-
+import SuccessModal from '../components/admin/paymentSuccessModal';
 export default function Checkout() {
   const [method, setMethod] = useState('bkash');
   const [isLoading, setIsLoading] = useState(false);
+  
+  // --- Success Modal State ---
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [successDetails, setSuccessDetails] = useState({ id: "", amount: "" });
 
-  // --- bKash Payment Handler ---
+  // --- Payment Handler ---
   const handlePayment = async () => {
     setIsLoading(true);
-    try {
-      // Calls the API route we created in the previous step
-      const res = await fetch('/api/checkout/bkash', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          amount: "450.00", 
-          orderId: `LUXE-${Math.floor(Math.random() * 10000)}` 
-        }),
-      });
-
-      const data = await res.json();
-      
-      if (data.bkashURL) {
-        window.location.href = data.bkashURL; // Redirect to bKash portal
-      } else {
-        alert("Payment initiation failed. Please check credentials.");
-      }
-    } catch (err) {
-      console.error("Payment Error:", err);
-    } finally {
-      setIsLoading(false);
-    }
+    setShowSuccess(true)
   };
 
   return (
@@ -41,7 +23,7 @@ export default function Checkout() {
       </div>
 
       <div className="space-y-6">
-        {/* Item Card (Preserved) */}
+        {/* Item Card */}
         <div className="flex gap-6 p-5 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm">
           <div className="w-24 h-24 bg-gray-50 rounded-3xl overflow-hidden flex-shrink-0">
             <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=200" className="w-full h-full object-cover" />
@@ -60,7 +42,7 @@ export default function Checkout() {
           </div>
         </div>
 
-        {/* --- NEW: Payment Method Selection --- */}
+        {/* Payment Method Selection */}
         <div className="space-y-3 pt-4">
           <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Payment Method</p>
           <div className="grid grid-cols-2 gap-3">
@@ -81,7 +63,7 @@ export default function Checkout() {
           </div>
         </div>
 
-        {/* Promo Input (Preserved) */}
+        {/* Promo Input */}
         <div className="relative group pt-4">
           <input 
             type="text" 
@@ -91,7 +73,7 @@ export default function Checkout() {
           <button className="absolute right-6 top-[calc(50%+8px)] -translate-y-1/2 text-[10px] font-black underline uppercase">Apply</button>
         </div>
 
-        {/* Price Summary (Preserved) */}
+        {/* Price Summary */}
         <div className="space-y-4 pt-10 px-2">
           <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-gray-400">
             <span>Subtotal</span>
@@ -107,7 +89,7 @@ export default function Checkout() {
           </div>
         </div>
 
-        {/* Payment CTA (Updated with Loading & Logic) */}
+        {/* Payment CTA */}
         <button 
           onClick={handlePayment}
           disabled={isLoading}
@@ -127,6 +109,14 @@ export default function Checkout() {
           All transactions are encrypted and secure.
         </p>
       </div>
+
+      {/* Success Modal Component */}
+      <SuccessModal 
+        isOpen={showSuccess} 
+        onClose={() => setShowSuccess(false)}
+        trxId={successDetails.id}
+        amount={successDetails.amount}
+      />
     </div>
   );
 }
